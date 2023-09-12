@@ -49,18 +49,12 @@ class Concert(object):
             print(e)
 
     def login(self):
-        if self.login_method == 0:
+        if not os.path.exists('cookies.pkl'):
+            # 如果不存在cookie.pkl,就获取一下
+            self.set_cookie()
+        else:
             self.driver.get(self.login_url)
-            # 载入登录界面
-            print('###开始登录###')
-
-        elif self.login_method == 1:
-            if not os.path.exists('cookies.pkl'):
-                # 如果不存在cookie.pkl,就获取一下
-                self.set_cookie()
-            else:
-                self.driver.get(self.target_url)
-                self.get_cookie()
+            self.get_cookie()
 
 
 if __name__ == '__main__':
